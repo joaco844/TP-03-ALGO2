@@ -106,6 +106,54 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Entro a la consola Lista de Tareas");
+                ListaTareas misTareas = new ListaTareas();
+                boolean salirTareas = false;
+
+                while (!salirTareas) {
+                    misTareas.mostrarTareas();
+
+                    System.out.println("que accion quiere realizar?");
+                    System.out.println("1.AGREGAR TAREA");
+                    System.out.println("2.REMOVER TAREA");
+                    System.out.println("3.MARCAR/DESMARCAR TAREA");
+                    System.out.println("4.SALIR");
+
+                    int opcion;
+                    try {
+                        opcion = scanner.nextInt();
+                        scanner.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Entrada invalida. Debe ingresar un numero.");
+                        scanner.nextLine();
+                        continue;
+                    }
+
+                    try {
+                        switch (opcion) {
+                            case 1:
+                                misTareas.agregarTarea();
+                                break;
+                            case 2:
+                                misTareas.eliminarTarea();
+                                break;
+                            case 3:
+                                misTareas.marcarTarea();
+                                break;
+                            case 4:
+                                salirTareas = true;
+                                System.out.println("Saliendo de la consola Lista de Tareas...");
+                                break;
+                            default:
+                                System.out.println("Opcion Invalida");
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Error: esa tarea no existe en la lista.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("Ocurrio un error inesperado: " + e.getMessage());
+                    }
+                }
                 break;
             default:
                 System.out.println("Opcion Invalida");
