@@ -17,6 +17,24 @@ public class Playlist {
     Boolean playing = false;
     int cancionActual = 0;
 
+    public Playlist() {
+        playlist.add("Bohemian Rhapsody");
+        playlist.add("Hotel California");
+        playlist.add("Stairway to Heaven");
+        playlist.add("Come As You Are");
+    }
+
+    public void mostrarCanciones(){
+        if (playlist.isEmpty()) {
+            System.out.println("No hay canciones en la playlist");
+            return;
+        }
+
+        System.out.println("--- Canciones en la Playlist ---");
+        for (int i = 0; i < playlist.size(); i++) {
+            System.out.println((i + 1) + ". " + playlist.get(i));
+        }
+    }
     public void agregarCancion(){
         System.out.println("Ingrese el nombre de la cancion: ");
         String nombreCancion = scanner.nextLine();

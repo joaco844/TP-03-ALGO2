@@ -15,6 +15,14 @@ public class ListaTareas {
     ArrayList<Tarea> tareas = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
+    public ListaTareas() {
+        tareas.add(new Tarea("Lavar los platos"));
+        tareas.add(new Tarea("Estudiar para el parcial"));
+        Tarea tareaCompletada = new Tarea("Comprar comida");
+        tareaCompletada.setCompletada(true);
+        tareas.add(tareaCompletada);
+    }
+    
     public void agregarTarea(){
         System.out.println("Ingrese el nombre de la tarea: ");
         String nombreTarea = scanner.nextLine();
@@ -29,7 +37,7 @@ public class ListaTareas {
     public void eliminarTarea(){
         System.out.println("Como desea eliminar la tarea?");
         System.out.println("1. Nombre");
-        System.out.println("2. Numero en playlist");
+        System.out.println("2. Numero en Lista");
 
         int userInput = scanner.nextInt();
         scanner.nextLine();

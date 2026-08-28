@@ -46,10 +46,12 @@ public class Main {
                         System.out.println("la playlist actual esta vacia!");
                     } else {
                         System.out.println("la playlist actual contiene " + myPlaylist.playlist.size() + " canciones!");
+                        myPlaylist.mostrarCanciones();
                         if (myPlaylist.playing) {
                             System.err.println("Se esta reproduciendo "+ myPlaylist.playlist.get(myPlaylist.cancionActual));
                         }
                     }
+                    System.out.println("------------------------------------");
 
                     System.out.println("que accion quiere realizar?");
                     System.out.println("1.AGREGAR CANCION");
@@ -111,6 +113,7 @@ public class Main {
 
                 while (!salirTareas) {
                     misTareas.mostrarTareas();
+                    System.out.println("---------------------");
 
                     System.out.println("que accion quiere realizar?");
                     System.out.println("1.AGREGAR TAREA");
