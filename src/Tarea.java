@@ -27,5 +27,10 @@ public class Tarea {
     public void setCompletada(boolean completada) {
         this.completada = completada;
     }
+    
+    @Override
+    public String toString() {
+        return (completada ? "[X] " : "[ ] ") + nombre;
+    }
 }
 
