@@ -1,130 +1,123 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package src;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
- *
- * @author joacodiaz
+ * Playlist sobre el TDA Lista estatica (arrays de clase).
+ * Las operaciones invalidas lanzan excepcion; Main las atrapa.
  */
 public class Playlist {
-    ArrayList<String> playlist = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
-    Boolean playing = false;
-    int cancionActual = 0;
+    private ListaTDA canciones;
+    private boolean reproduciendo;
+    private int cancionActual;
 
     public Playlist() {
-        playlist.add("Bohemian Rhapsody");
-        playlist.add("Hotel California");
-        playlist.add("Stairway to Heaven");
-        playlist.add("Come As You Are");
+        canciones = new ListaEstatica();
+        canciones.inicializarLista();
+        reproduciendo = false;
+        cancionActual = 1;
+        cargarDatosIniciales();
     }
 
-    public void mostrarCanciones(){
-        if (playlist.isEmpty()) {
-            System.out.println("No hay canciones en la playlist");
+    private void cargarDatosIniciales() {
+        canciones.agregarFinal("Bohemian Rhapsody");
+        canciones.agregarFinal("Billie Jean");
+        canciones.agregarFinal("Imagine");
+        canciones.agregarFinal("Smells Like Teen Spirit");
+    }
+
+    public void agregarCancion(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la cancion no puede estar vacio");
+        }
+        canciones.agregarFinal(nombre.trim());
+    }
+
+    public void eliminarPorNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la cancion no puede estar vacio");
+        }
+        int pos = canciones.buscar(nombre.trim());
+        if (pos == 0) {
+            throw new IllegalArgumentException("Esa cancion no existe en la playlist");
+        }
+        eliminarEn(pos);
+    }
+
+    public void eliminarPorNumero(int numero) {
+        eliminarEn(numero);
+    }
+
+    private void eliminarEn(int posicion) {
+        canciones.eliminarEn(posicion);
+        if (canciones.listaVacia()) {
+            cancionActual = 1;
+            reproduciendo = false;
             return;
         }
-
-        System.out.println("--- Canciones en la Playlist ---");
-        for (int i = 0; i < playlist.size(); i++) {
-            System.out.println((i + 1) + ". " + playlist.get(i));
-        }
-    }
-    public void agregarCancion(){
-        System.out.println("Ingrese el nombre de la cancion: ");
-        String nombreCancion = scanner.nextLine();
-        
-        playlist.add(nombreCancion);
-    }
-
-    public void eliminarCancion(){
-        System.out.println("Como desea eliminar la cancion?");
-        System.out.println("1. Nombre");
-        System.out.println("2. Numero en playlist");
-
-        int userInput;
-        try {
-            userInput = scanner.nextInt();
-            scanner.nextLine();
-        } catch (java.util.InputMismatchException e) {
-            System.out.println("Entrada invalida.");
-            scanner.nextLine();
-            return;
-        }
-
-        switch (userInput) {
-            case 1:
-                System.out.println("Ingrese el nombre: ");
-                String nombreCancion = scanner.nextLine();
-                if (!playlist.remove(nombreCancion)) {
-                    System.out.println("Esa cancion no existe en la playlist.");
-                }
-                break;
-            case 2:
-                System.out.println("Ingrese el numero: ");
-                int numCancion;
-                try {
-                    numCancion = scanner.nextInt();
-                    scanner.nextLine();
-                } catch (java.util.InputMismatchException e) {
-                    System.out.println("Entrada invalida.");
-                    scanner.nextLine();
-                    return;
-                }
-                if (numCancion < 1 || numCancion > playlist.size()) {
-                    throw new IndexOutOfBoundsException("Numero de cancion fuera de rango");
-                }
-                playlist.remove(numCancion - 1);
-                break;
-            default:
-                System.out.println("Opcion Invalida");
+        if (cancionActual > canciones.tamanio()) {
+            cancionActual = canciones.tamanio();
+        } else if (cancionActual > posicion) {
+            cancionActual--;
         }
     }
 
-    public void siguienteCancion(){
-        if (playlist.isEmpty()) {
-            System.out.println("No hay canciones en la playlist");
-            return;
+    public void siguienteCancion() {
+        if (canciones.listaVacia()) {
+            throw new IllegalStateException("No hay canciones en la playlist");
         }
-        if (cancionActual >= playlist.size() - 1) {
+        if (cancionActual >= canciones.tamanio()) {
             throw new IndexOutOfBoundsException("No hay siguiente cancion");
         }
         cancionActual++;
-        System.out.println("Ahora estas escuchando: " + playlist.get(cancionActual));
+        reproduciendo = true;
+        System.out.println("Ahora estas escuchando: " + canciones.recuperar(cancionActual));
     }
 
-    public void anteriorCancion(){
-        if (playlist.isEmpty()) {
-            System.out.println("No hay canciones en la playlist");
-            return;
+    public void anteriorCancion() {
+        if (canciones.listaVacia()) {
+            throw new IllegalStateException("No hay canciones en la playlist");
         }
-        if (cancionActual <= 0) {
+        if (cancionActual <= 1) {
             throw new IndexOutOfBoundsException("No hay cancion anterior");
         }
         cancionActual--;
-        System.out.println("Ahora estas escuchando: " + playlist.get(cancionActual));
+        reproduciendo = true;
+        System.out.println("Ahora estas escuchando: " + canciones.recuperar(cancionActual));
     }
 
-    public void pausar(){
-        if(playing){
-            System.err.println("Pausando cancion!");
-            playing = false;
-        }else{
-            System.out.println("ya esta pausado.");
+    public void pausar() {
+        if (canciones.listaVacia()) {
+            throw new IllegalStateException("No hay canciones en la playlist");
         }
+        if (!reproduciendo) {
+            throw new IllegalStateException("Ya esta pausado");
+        }
+        reproduciendo = false;
+        System.out.println("Pausando cancion!");
     }
 
-    public void reproducir(){
-        if(!playing){
-            System.err.println("Reproduciendo cancion!");
-            playing = true;
-        }else{
-            System.out.println("ya se esta reproduciendo.");
+    public void reproducir() {
+        if (canciones.listaVacia()) {
+            throw new IllegalStateException("No hay canciones en la playlist");
+        }
+        if (reproduciendo) {
+            throw new IllegalStateException("Ya se esta reproduciendo");
+        }
+        reproduciendo = true;
+        System.out.println("Reproduciendo cancion!");
+    }
+
+    public void mostrarPlaylist() {
+        if (canciones.listaVacia()) {
+            System.out.println("la playlist actual esta vacia!");
+            return;
+        }
+
+        System.out.println("la playlist actual contiene " + canciones.tamanio() + " canciones!");
+        for (int i = 1; i <= canciones.tamanio(); i++) {
+            System.out.println(i + ". " + canciones.recuperar(i));
+        }
+        if (reproduciendo) {
+            System.out.println("Se esta reproduciendo " + canciones.recuperar(cancionActual));
         }
     }
-}   
+}

@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package src;
+
 /**
  *
  * @author joacodiaz
@@ -16,6 +13,11 @@ public class Tarea {
         this.completada = false;
     }
 
+    public Tarea(String nombre, boolean completada) {
+        this.nombre = nombre;
+        this.completada = completada;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -27,10 +29,26 @@ public class Tarea {
     public void setCompletada(boolean completada) {
         this.completada = completada;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Tarea)) {
+            return false;
+        }
+        Tarea otra = (Tarea) obj;
+        return nombre.equals(otra.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
+    }
+
     @Override
     public String toString() {
         return (completada ? "[X] " : "[ ] ") + nombre;
     }
 }
-
