@@ -1,8 +1,7 @@
 package src;
 
 /**
- * Playlist sobre el TDA Lista estatica (arrays de clase).
- * Las operaciones invalidas lanzan excepcion; Main las atrapa.
+ * Playlist usando el TDA Lista estatica.
  */
 public class Playlist {
     private ListaTDA canciones;
@@ -19,9 +18,9 @@ public class Playlist {
 
     private void cargarDatosIniciales() {
         canciones.agregarFinal("Bohemian Rhapsody");
-        canciones.agregarFinal("Billie Jean");
-        canciones.agregarFinal("Imagine");
-        canciones.agregarFinal("Smells Like Teen Spirit");
+        canciones.agregarFinal("Hotel California");
+        canciones.agregarFinal("Stairway to Heaven");
+        canciones.agregarFinal("Come As You Are");
     }
 
     public void agregarCancion(String nombre) {
@@ -109,15 +108,18 @@ public class Playlist {
     public void mostrarPlaylist() {
         if (canciones.listaVacia()) {
             System.out.println("la playlist actual esta vacia!");
-            return;
+        } else {
+            System.out.println("la playlist actual contiene " + canciones.tamanio() + " canciones!");
+            System.out.println();
+            System.out.println("--- Canciones en la Playlist ---");
+            for (int i = 1; i <= canciones.tamanio(); i++) {
+                System.out.println(i + ". " + canciones.recuperar(i));
+            }
+            if (reproduciendo) {
+                System.out.println("Se esta reproduciendo " + canciones.recuperar(cancionActual));
+            }
         }
-
-        System.out.println("la playlist actual contiene " + canciones.tamanio() + " canciones!");
-        for (int i = 1; i <= canciones.tamanio(); i++) {
-            System.out.println(i + ". " + canciones.recuperar(i));
-        }
-        if (reproduciendo) {
-            System.out.println("Se esta reproduciendo " + canciones.recuperar(cancionActual));
-        }
+        System.out.println("-------------------------------------");
+        System.out.println();
     }
 }

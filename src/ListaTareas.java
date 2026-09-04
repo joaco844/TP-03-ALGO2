@@ -1,8 +1,7 @@
 package src;
 
 /**
- * Lista de tareas sobre el TDA Lista estatica (arrays de clase).
- * Las operaciones invalidas lanzan excepcion; Main las atrapa.
+ * Lista de tareas usando el TDA Lista estatica.
  */
 public class ListaTareas {
     private ListaTDA tareas;
@@ -55,13 +54,14 @@ public class ListaTareas {
     public void mostrarTareas() {
         if (tareas.listaVacia()) {
             System.out.println("No hay tareas cargadas");
-            return;
+        } else {
+            System.out.println("--- Lista de Tareas ---");
+            for (int i = 1; i <= tareas.tamanio(); i++) {
+                System.out.println(i + ". " + tareas.recuperar(i));
+            }
         }
-
-        System.out.println("--- Lista de Tareas ---");
-        for (int i = 1; i <= tareas.tamanio(); i++) {
-            System.out.println(i + ". " + tareas.recuperar(i));
-        }
+        System.out.println("-------------------------------------");
+        System.out.println();
     }
 
     private int buscarPorNombre(String nombre) {

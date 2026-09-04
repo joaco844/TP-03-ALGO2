@@ -3,8 +3,7 @@ package src;
 import java.util.Scanner;
 
 /**
- * Consola de la opcion 2: Lista de Tareas.
- * Un error no cierra el programa ni vuelve a un menu anterior: se retoma aca.
+ * Consola de la lista de tareas. Si hay un error se queda en este menu.
  */
 public class MainTareas {
     public static void main(String[] args) {

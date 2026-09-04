@@ -4,8 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Lectura de consola: si el dato es invalido, vuelve a pedir en el mismo lugar
- * (no sale del menu ni del programa).
+ * Lectura de consola. Si el input no es un numero, avisa y no corta el programa.
  */
 public class Entrada {
     public static Integer leerEntero(Scanner scanner) {

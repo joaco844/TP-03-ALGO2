@@ -1,8 +1,8 @@
 package src;
 
 /**
- * Implementacion estatica del TDA Lista: arreglo de tamaño fijo + contador.
- * Misma idea que las arrays de clase. Lanza excepciones si el dato o la operacion no son validos.
+ * Implementacion estatica del TDA Lista: array de tamaño fijo + cantidad.
+ * Si le pasas algo invalido tira excepcion.
  */
 public class ListaEstatica implements ListaTDA {
     private static final int MAX = 100;

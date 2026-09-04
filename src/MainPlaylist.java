@@ -3,8 +3,7 @@ package src;
 import java.util.Scanner;
 
 /**
- * Consola de la opcion 1: Playlist.
- * Un error no cierra el programa ni vuelve a un menu anterior: se retoma aca.
+ * Consola de la playlist. Si hay un error se queda en este menu.
  */
 public class MainPlaylist {
     public static void main(String[] args) {

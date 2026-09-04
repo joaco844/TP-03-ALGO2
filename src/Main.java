@@ -3,8 +3,7 @@ package src;
 import java.util.Scanner;
 
 /**
- * Menu inicial: elige Playlist o Lista de Tareas.
- * Cada opcion tiene su propio Main. Un error no vuelve aca; solo SALIR de esa consola.
+ * Menu para elegir Playlist o Lista de Tareas.
  */
 public class Main {
     public static void main(String[] args) {

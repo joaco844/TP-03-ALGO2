@@ -1,9 +1,5 @@
 package src;
 
-/**
- *
- * @author joacodiaz
- */
 public class Tarea {
     private String nombre;
     private boolean completada;
